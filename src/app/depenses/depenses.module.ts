@@ -20,7 +20,7 @@ import { AuthGuard } from '../auth.guard';
 const depenseRoutes: Routes = [
 {
   path :'budget',
-  component: BudgetListComponent
+  component: BudgetListComponent,canActivate:[AuthGuard]
 },
 {
 path :'budget/add',
@@ -33,7 +33,7 @@ component: EditDepensesComponent,canActivate:[AuthGuard]
 
 {
   path :'solde',
-  component: SoldeListComponent
+  component: SoldeListComponent,canActivate:[AuthGuard]
 },
 
 {
