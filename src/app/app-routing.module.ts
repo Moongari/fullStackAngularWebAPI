@@ -6,10 +6,16 @@ import { EditDepensesComponent } from './depenses/edit-depenses/edit-depenses.co
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { SoldeListComponent } from './depenses/solde-list/solde-list.component';
 import { UpdateSoldeComponent } from './depenses/update-solde/update-solde.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
+
+ 
   {
-    path:'',redirectTo:'budget', pathMatch:'full'
+    path:'',redirectTo:'login', pathMatch:'full'
+  },
+  {
+    path:'login',component:LoginComponent
   },
 
   {

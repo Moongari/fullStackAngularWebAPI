@@ -1,0 +1,30 @@
+<div class="container my-5">
+    <div class="row">
+        <div class="col-3">
+
+          <p><em>{{message}}</em></p>
+
+            <form #loginForm="ngForm">
+                <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+            
+                  <label for="name">Name</label>
+                  <input type="text" id="name" class="form-control" placeholder="login" [(ngModel)]="name"
+                  name="name" 
+                  required >
+        
+                <br>
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" placeholder="Password"
+                  name="password" [(ngModel)]="password" required>
+                 
+                <br>
+                <button class=" btn btn-primary" type="submit" (click)="login()" *ngIf="!auth?.isLoggedIn">Sign in</button>
+                <button (click)="logout()" *ngIf="auth?.isLoggedIn">Sign out</button>
+              
+              </form>
+            
+
+
+        </div>
+    </div>
+</div>

@@ -8,17 +8,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { DepensesModule } from './depenses/depenses.module';
+import { LoginComponent } from './login/login.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     DepensesModule,
     AppRoutingModule,
+    FormsModule
 
   ],
   providers: [],
