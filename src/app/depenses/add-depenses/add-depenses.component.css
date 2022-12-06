@@ -8,3 +8,11 @@
     font-family: Arial, Helvetica, sans-serif;
     margin-left: 250px;
 }
+
+.ng-valid[required]{
+    border-left: 5 px solid green;
+}
+
+.ng-invalid:not(form){
+    border-color: 5 px solid red;
+}

@@ -1,3 +1,10 @@
 #titleSpent{
     text-align: center;
 }
+.ng-valid[required]{
+    border-color:  green;
+}
+
+.ng-invalid:not(form){
+    border-color: red;
+}

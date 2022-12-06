@@ -9,14 +9,19 @@
             <form #editDepenseform="ngForm" (ngSubmit)="updateSpent()">
                 <div class="mb-3">
                   <label for="name" class="form-label">Name</label>
+
                   <input type="text" class="form-control" id="name" 
                     name="name" 
                     required
+                    pattern="^([a-z-A-Z]){1,20}$"
                     [(ngModel)]="updateDepenseRequest.name"
                     [ngModelOptions]="{standalone: true}"
                     (keypress)="isLetters($event)"
                     #name="ngModel"
                     >
+                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                        this field required (1-20).
+                    </div>
                 </div>
               
 
@@ -25,10 +30,15 @@
                   <input type="number" class="form-control" id="Amount"
                     name="Amount" 
                     required
+                    pattern="^[0-9]{1,6}$"
                     [(ngModel)]="updateDepenseRequest.amount"
                     [ngModelOptions]="{standalone: true}"
                     #Amount="ngModel"
                     >
+                    <br>
+                    <div [hidden]="Amount.valid || Amount.pristine" class="alert alert-danger">
+                      this field max (6).
+                    </div>
                 </div>
 
                 <div class="mb-3">
@@ -36,10 +46,15 @@
                     <input type="text" class="form-control" id="Categories"
                     name="Categories" 
                     required
+                    pattern="^([a-z-A-Z]){1,20}$"
                     [(ngModel)]="updateDepenseRequest.categories"
                     [ngModelOptions]="{standalone: true}"
                     (keypress)="isLetters($event)"
                     #Categories="ngModel">
+                    <br>
+                    <div [hidden]="Categories.valid || Categories.pristine" class="alert alert-danger">
+                      this field required (1-20).
+                    </div>
                   </div>
 
                   
@@ -54,17 +69,21 @@
                     >
                     <label class="form-check-label" for="mandatory">Mandatory</label>
                   </div>
+
                   <div class="mb-3">
                     <label for="Date" class="form-label">Date</label>
                     <input type="date" class="form-control" id="Date"
                     name="Date"
                     required
+                    pattern="^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$"
                     [(ngModel)]="updateDepenseRequest.dateDepenses"
                     [ngModelOptions]="{standalone: true}"
                     #Date="ngModel"
                     >
                   </div>
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary"
+                [disabled]="!editDepenseform.form.valid"
+                >Save</button>
                 <br>
                 <br>
                 <div *ngIf="isValidForms ; else elseBlock" >
