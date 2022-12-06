@@ -1,0 +1,2 @@
+# fullStackAngularWebAPI
+Angular15_NetCore6WebAPI
