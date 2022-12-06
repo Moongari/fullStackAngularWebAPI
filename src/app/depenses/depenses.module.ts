@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { DepensesService } from './services/depenses.service';
 import { SoldeService } from './services/solde.service';
+import { AuthGuard } from '../auth.guard';
 
 
 
@@ -23,11 +24,11 @@ const depenseRoutes: Routes = [
 },
 {
 path :'budget/add',
-component: AddDepensesComponent
+component: AddDepensesComponent,canActivate:[AuthGuard]
 },
 {
 path :'budget/:id',
-component: EditDepensesComponent
+component: EditDepensesComponent,canActivate:[AuthGuard]
 },
 
 {
@@ -37,7 +38,7 @@ component: EditDepensesComponent
 
 {
   path :'solde/update',
-  component: UpdateSoldeComponent
+  component: UpdateSoldeComponent,canActivate:[AuthGuard]
 
 }
 ];
