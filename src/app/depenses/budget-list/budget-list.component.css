@@ -1,0 +1,23 @@
+#balanceTitle{
+    font-size: 20px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-left: -120px;
+    margin-top: 5px;
+    float: left;
+}
+#title{
+    font-size: 50px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-style: normal;
+    margin-left: auto;
+}
+
+#messageNoSpentData{
+
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: red;
+    margin-left: 500px;
+    margin-top: 100px;
+
+}

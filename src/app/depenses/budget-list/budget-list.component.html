@@ -1,0 +1,61 @@
+<div class="container mg-6">
+  
+    <div class="shadow-sm p-3 mb-5 bg-body rounded">
+      <h1 class="mb-3" id="title">BUDGET MANAGEMENT</h1>
+  </div>
+    <div class="row justify-content-center">
+    <div class="col-4">
+        <h3 id="balanceTitle" class="badge rounded-pill bg-secondary">Balance</h3>
+        <input type="text" class="form-control" placeholder="{{ soldeActual}} euros" aria-label="solde"  readonly>
+    
+      <div *ngIf="soldeActual >0; else elseBlock">
+        <button type="button" class="btn btn-success mt-2">
+        Information <span class="badge bg-success">{{messageWarningSolde}}</span>
+      </button></div>
+
+    <ng-template #elseBlock><button type="button" class="btn btn-primary mt-2">
+        Information <span class="badge bg-danger">{{messageWarningSolde}}</span>
+      </button></ng-template>
+    </div>
+    </div>
+  
+    <input 
+    #input
+    (click)="selectinfoList(input.value)"
+    type="number" 
+    />
+    
+    <p *ngIf="isErrorMessage==false" class="text-success">{{depenseNameSelected}}</p>
+    <p *ngIf="isErrorMessage" class="text-danger">{{depenseNameSelected}}</p>
+
+    <table class="table table table-hover mt-5" *ngIf="budgetDepenses && budgetDepenses.length >0" >
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">NAME</th>
+            <th scope="col">AMOUNT</th>
+            <th scope="col">SPENT (Fixe-Variable)</th>
+            <th scope="col">CATEGORIES</th>
+            <th scope="col">DATE</th>
+            <th scope="col">ACTION</th>
+          </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let depenses of budgetDepenses" appBorderDepense>
+                <td>{{depenses.id}}</td>
+                <td (click)="selectNameDepense(depenses)">{{depenses.name|uppercase}}</td>
+                <td>{{depenses.amount  | currency:"€" }}</td>
+             
+                <td><p *ngIf="depenses.mandatory != false">
+                  <input type="checkbox" checked></td>
+                  <td>{{depenses.categories|uppercase}}</td>
+                <td>{{depenses.dateDepenses|date:"dd/MM/yyyy"}}</td>
+                <td><button type="button" (click)="gotoDepenseEdit(depenses)" class="btn btn-secondary">View</button></td>
+            </tr>
+        </tbody>
+      </table>
+      <div class="shadow-sm p-3 mb-5 bg-body rounded">
+        <p *ngIf="!budgetDepenses || budgetDepenses.length <=0" id="messageNoSpentData">NO DATA FOUND</p>
+      </div>
+      
+</div>

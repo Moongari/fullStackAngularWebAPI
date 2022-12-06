@@ -1,0 +1,90 @@
+<div class="container my-5">
+    
+    <div class="shadow-sm p-3 mb-5 bg-body rounded">
+        <h1 class="mb-3" id="titleSpent"> Modify your spent</h1>
+    </div>
+    <div class="row">
+        <div class="col-6">
+
+            <form #editDepenseform="ngForm" (ngSubmit)="updateSpent()">
+                <div class="mb-3">
+                  <label for="name" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="name" 
+                    name="name" 
+                    required
+                    [(ngModel)]="updateDepenseRequest.name"
+                    [ngModelOptions]="{standalone: true}"
+                    (keypress)="isLetters($event)"
+                    #name="ngModel"
+                    >
+                </div>
+              
+
+                <div class="mb-3">
+                  <label for="Amount" class="form-label">Amount</label>
+                  <input type="number" class="form-control" id="Amount"
+                    name="Amount" 
+                    required
+                    [(ngModel)]="updateDepenseRequest.amount"
+                    [ngModelOptions]="{standalone: true}"
+                    #Amount="ngModel"
+                    >
+                </div>
+
+                <div class="mb-3">
+                    <label for="Categories" class="form-label">Categories</label>
+                    <input type="text" class="form-control" id="Categories"
+                    name="Categories" 
+                    required
+                    [(ngModel)]="updateDepenseRequest.categories"
+                    [ngModelOptions]="{standalone: true}"
+                    (keypress)="isLetters($event)"
+                    #Categories="ngModel">
+                  </div>
+
+                  
+
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="mandatory" 
+                    name="mandatory"
+                    [(ngModel)]="updateDepenseRequest.mandatory"
+                    [ngModelOptions]="{standalone: true}"
+                    (click)="isCheckedMandatory($event)"
+                    #mandatory="ngModel"
+                    >
+                    <label class="form-check-label" for="mandatory">Mandatory</label>
+                  </div>
+                  <div class="mb-3">
+                    <label for="Date" class="form-label">Date</label>
+                    <input type="date" class="form-control" id="Date"
+                    name="Date"
+                    required
+                    [(ngModel)]="updateDepenseRequest.dateDepenses"
+                    [ngModelOptions]="{standalone: true}"
+                    #Date="ngModel"
+                    >
+                  </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+                <br>
+                <br>
+                <div *ngIf="isValidForms ; else elseBlock" >
+                  <p class="alert alert-success">{{messageValidation}}</p>
+                </div>
+                <ng-template #elseBlock>
+                  
+                  <p class="alert alert-danger">{{messageErrorValidation}}</p>
+                </ng-template>
+
+              </form>
+
+          
+                <br>
+            </div>
+            <div *ngIf="errorChecked">
+              <p class="alert alert-danger">{{messageErrorTyping}}</p>
+            </div>
+         
+            
+    </div>
+    
+</div>
