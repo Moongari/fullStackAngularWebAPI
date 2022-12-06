@@ -51,5 +51,15 @@ namespace FullStackAPI.Controllers
             return Ok(budgetRequest);
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> getCategorieByTerm([FromBody] string term)
+        {
+            if(term == null) { return BadRequest(); }
+            var categorie = await _fullStackDbContext.budgets.FirstOrDefaultAsync(x=>x.categories.StartsWith(term,StringComparison.OrdinalIgnoreCase));
+            if(categorie == null) { return BadRequest(); }
+            return Ok(categorie);
+            
+        }
     }
 }
