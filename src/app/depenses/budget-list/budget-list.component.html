@@ -25,13 +25,17 @@
     (click)="selectinfoList(input.value)"
     type="number" 
     />
-    <div>Recherche par Categories</div>
+   
+    <div>Search by category (see on the list)</div>
     <input #categorie  
   
     text="text" id="searchCategories" name="searchCategories" (keyup)="selectCategorie(categorie.value)"
     pattern="^[a-z-A-Z]{1,30}$"
-  
     />
+    <br><br>
+    
+      <app-search-depenses></app-search-depenses>
+
     <div>
       <p *ngIf="errorTypingCategorie" class="text-danger">{{messageErrorSaisie}}</p>
     </div>

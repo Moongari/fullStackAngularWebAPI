@@ -14,13 +14,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { DepensesService } from './services/depenses.service';
 import { SoldeService } from './services/solde.service';
 import { AuthGuard } from '../auth.guard';
+import { SearchDepensesComponent } from './search-depenses/search-depenses.component';
 
 
 
 const depenseRoutes: Routes = [
 {
   path :'budget',
-  component: BudgetListComponent,canActivate:[AuthGuard]
+  component: BudgetListComponent,
 },
 {
 path :'budget/add',
@@ -52,6 +53,7 @@ component: EditDepensesComponent,canActivate:[AuthGuard]
     UpdateSoldeComponent,
     SoldeListComponent,
     EditDepensesComponent,
+    SearchDepensesComponent,
   ],
   imports: [
     CommonModule,
