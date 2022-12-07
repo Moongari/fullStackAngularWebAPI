@@ -3,6 +3,7 @@ using FullStackAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using System.Net;
 
 namespace FullStackAPI.Controllers
 {
@@ -58,16 +59,21 @@ namespace FullStackAPI.Controllers
         [Route("ByCategorie/{term}")]
         public async Task<IActionResult> getCategorieByTerm([FromRoute] string term)
         {
-            if(term == null) { return BadRequest(); }
+            if(term == null) { return BadRequest("not found"); }
 
             var CategorieChoice = await _fullStackDbContext.budgets
-                .Where(cat=> cat.categories.StartsWith(term))
+                .Where(cat=> cat.categories.Contains(term))
                 .ToListAsync();
 
-            if(CategorieChoice.Count == 0) { return NotFound("Aucun element trouvé"); }
+           
             
 
             if(CategorieChoice == null) { return BadRequest(); }
+            if (CategorieChoice.Count == 0)
+            {
+
+                return NotFound("no data found");
+            }
             return Ok(CategorieChoice);
             
         }
