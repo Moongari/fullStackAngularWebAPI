@@ -2,6 +2,7 @@
 using FullStackAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace FullStackAPI.Controllers
 {
@@ -19,8 +20,8 @@ namespace FullStackAPI.Controllers
         }
 
 
-       [HttpGet]
-       public async Task<IActionResult> GetAllDepenses()
+        [HttpGet]
+        public async Task<IActionResult> GetAllDepenses()
         {
             var depenses = await _fullStackDbContext.budgets.ToListAsync();
             if (depenses == null) { return NotFound(depenses); }
@@ -34,17 +35,18 @@ namespace FullStackAPI.Controllers
         [Route("{id}")]
         public async Task<IActionResult> GetDepense([FromRoute] int id)
         {
-            var depense = await _fullStackDbContext.budgets.FirstOrDefaultAsync(x=> x.id == id);
-            if(depense == null) { return NotFound(depense); }
+            var depense = await _fullStackDbContext.budgets.FirstOrDefaultAsync(x => x.id == id);
+            if (depense == null) { return NotFound(depense); }
             return Ok(depense);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> AddDepenses([FromBody]Budget budgetRequest)
+        public async Task<IActionResult> AddDepenses([FromBody] Budget budgetRequest)
         {
             budgetRequest.id = 0;
-            if(budgetRequest == null) { return BadRequest(); }
+            budgetRequest.categories.ToUpper();
+            if (budgetRequest == null) { return BadRequest(); }
             await _fullStackDbContext.budgets.AddAsync(budgetRequest);
             await _fullStackDbContext.SaveChangesAsync();
 
@@ -53,12 +55,20 @@ namespace FullStackAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> getCategorieByTerm([FromBody] string term)
+        [Route("ByCategorie/{term}")]
+        public async Task<IActionResult> getCategorieByTerm([FromRoute] string term)
         {
             if(term == null) { return BadRequest(); }
-            var categorie = await _fullStackDbContext.budgets.FirstOrDefaultAsync(x=>x.categories.StartsWith(term,StringComparison.OrdinalIgnoreCase));
-            if(categorie == null) { return BadRequest(); }
-            return Ok(categorie);
+
+            var CategorieChoice = await _fullStackDbContext.budgets
+                .Where(cat=> cat.categories.StartsWith(term))
+                .ToListAsync();
+
+            if(CategorieChoice.Count == 0) { return NotFound("Aucun element trouvé"); }
+            
+
+            if(CategorieChoice == null) { return BadRequest(); }
+            return Ok(CategorieChoice);
             
         }
     }
