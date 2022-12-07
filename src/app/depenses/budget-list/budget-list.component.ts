@@ -25,8 +25,9 @@ export class BudgetListComponent implements OnInit{
     soldeByApi:Solde [] =[];
   
     soldeActual:number=0;
-
-   
+    messageErrorSaisie:string = '';
+    errorTypingCategorie:boolean=false;
+    searchCategories:string='';
     
 
 
@@ -127,7 +128,7 @@ export class BudgetListComponent implements OnInit{
     this.isErrorMessage= false;
     if(depensesValue){
       console.log('vous avez selectionné la depense '+ depensesValue.name);
-      this.depenseNameSelected= "LE :" +depensesValue.dateDepenses +"-"+ depensesValue.name + " = " +depensesValue.amount + '€'
+      this.depenseNameSelected= "LE :" + depensesValue.dateDepenses +"-"+ depensesValue.name + " = " +depensesValue.amount + '€'
     }else{
       console.log('aucun resultat ne correspond a cette recherche ');
       this.depenseNameSelected = 'Aucun resultat ne correspond a cette recherche.';
@@ -150,10 +151,49 @@ export class BudgetListComponent implements OnInit{
 
   gotoDepenseEdit(editDepense:Budget){
 
-    
-
     this.router.navigate(['/budget',editDepense.id]);
   }
+
+  selectCategorie(categorie:any)
+  {
+
+    if(isNaN(categorie) && categorie !== null){
+
+      this.errorTypingCategorie= false;
+
+      if(categorie.length>0){
+        this.depenseService.searchDepenseList(categorie)
+        .subscribe({
+          next:(cat)=>{
+            console.table(cat)
+            this.budgetDepenses= cat;
+          },
+          error:(response)=>{console.table(response);}
+        })
+      }
+
+      
+    }else{
+      
+      if(categorie.trim() === null)
+    
+      {   this.messageErrorSaisie='';}
+      else{
+        this.errorTypingCategorie= true;
+        this.messageErrorSaisie='Error, please typing only string characteres';
+      }
+     
+  
+    }
+
+ 
+
+   
+  
+
+
+    }
+  
  
 }
 

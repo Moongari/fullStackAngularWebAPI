@@ -31,6 +31,13 @@ baseAPiUrl: string = environnement.baseApiUrl;
   }
 
 
+  searchDepenseList(term:string):Observable<Budget[]>{
+    console.log(term);
+    return this.http.get<Budget[]>(this.baseAPiUrl + `/api/Budget/ByCategorie/${term}`);
+
+  }
+
+
 
 
 

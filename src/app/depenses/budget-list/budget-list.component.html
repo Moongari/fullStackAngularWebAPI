@@ -19,11 +19,22 @@
     </div>
     </div>
   
+    <div>Recherche par ID</div>
     <input 
     #input
     (click)="selectinfoList(input.value)"
     type="number" 
     />
+    <div>Recherche par Categories</div>
+    <input #categorie  
+  
+    text="text" id="searchCategories" name="searchCategories" (keyup)="selectCategorie(categorie.value)"
+    pattern="^[a-z-A-Z]{1,30}$"
+  
+    />
+    <div>
+      <p *ngIf="errorTypingCategorie" class="text-danger">{{messageErrorSaisie}}</p>
+    </div>
     
     <p *ngIf="isErrorMessage==false" class="text-success">{{depenseNameSelected}}</p>
     <p *ngIf="isErrorMessage" class="text-danger">{{depenseNameSelected}}</p>
