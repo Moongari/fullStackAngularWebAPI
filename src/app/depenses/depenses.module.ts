@@ -16,6 +16,7 @@ import { SoldeService } from './services/solde.service';
 import { AuthGuard } from '../auth.guard';
 import { SearchDepensesComponent } from './search-depenses/search-depenses.component';
 import { SearhEditDepenseComponent } from './searh-edit-depense/searh-edit-depense.component';
+import { LoaderComponent } from './loader/loader.component';
 
 
 
@@ -60,6 +61,7 @@ component: EditDepensesComponent,canActivate:[AuthGuard]
     EditDepensesComponent,
     SearchDepensesComponent,
     SearhEditDepenseComponent,
+    LoaderComponent,
   ],
   imports: [
     CommonModule,

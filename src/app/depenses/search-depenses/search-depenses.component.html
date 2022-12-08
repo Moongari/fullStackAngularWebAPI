@@ -8,7 +8,7 @@
             <div class="card-body text-secondary">
               <h5 class="card-title">Select your category</h5>
 
-              <select class="form-select" #selectedCat (change)="selectedCategorie(selectedCat.value)">
+              <select class="form-select" #selectedCat (change)="selectedCategorie(selectedCat.value)" >
                 <option *ngFor="let cat of budgetDepenses"  value="{{cat.categories}}">{{cat.categories}}-{{cat.name}} - {{cat.amount | currency:'€'}}</option>
             
               </select>
@@ -18,11 +18,12 @@
               <input type="text"  (click)="search(resultSelected)" 
               placeholder="category search" 
               value={{resultSelected}}
-              title="Click on the field to see your result"
-              
+              title="Select your Category and Click on the field to see your result"
               />
-
-              <div class="list-group">
+              <div *ngIf="!isLoading">
+                <app-loader></app-loader>
+              </div>
+              <div class="list-group" >
             
                 <button type="button" class="list-group-item list-group-item-action" *ngFor="let cat of depenses$ | async"
                 (click)="gotoEdit(cat)">

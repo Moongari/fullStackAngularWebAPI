@@ -23,6 +23,7 @@ export class SearchDepensesComponent implements OnInit{
   messageBadRequest : string = 'Aucun resultat pour cette recherche';
   isBadBadRequest:boolean= false;
   resultSelected : string ='';
+  isLoading:boolean= false;
   
   
   
@@ -48,11 +49,18 @@ export class SearchDepensesComponent implements OnInit{
   }
 
 
-  search(term:string| any){
+  search(term:string){
 
+    //console.log("Term:"+ term);
     
     if(term !== null){
+    
       this.searchTerm.next(term);
+      // ici on reinitialise la variable afin que la liste disparaisse
+      this.resultSelected='';
+
+    }else{
+    this.searchTerm.complete();
     }
     
 
@@ -75,10 +83,17 @@ export class SearchDepensesComponent implements OnInit{
   }
 
 
-  selectedCategorie(cat:string){
+  selectedCategorie(cat:string | any){
     
     console.log('result' + cat.substring(0,1));
-    return this.resultSelected = cat.substring(0,1);
+    if(cat.substring(0,1) !== null){
+      this.isLoading =true;
+      return this.resultSelected = cat.substring(0,1);
+     
+    }else{
+      this.isLoading= false;
+    }
+   
   }
 
 }
