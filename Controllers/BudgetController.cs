@@ -93,5 +93,25 @@ namespace FullStackAPI.Controllers
 
 
         }
+
+        [HttpPut]
+        [Route("{id}")]
+        public async Task<IActionResult> udpateSpent([FromRoute] int id,Budget updateSpentRequest)
+        {
+            var spent = await _fullStackDbContext.budgets.FindAsync(id);
+            if (spent == null) { return BadRequest(); }
+
+      
+            spent.name = updateSpentRequest.name;
+            spent.amount = updateSpentRequest.amount;
+            spent.categories = updateSpentRequest.categories;
+            spent.dateDepenses = updateSpentRequest.dateDepenses;
+            spent.mandatory = updateSpentRequest.mandatory;
+
+            await this._fullStackDbContext.SaveChangesAsync();
+
+            return Ok(spent);
+
+        }
     }
 }
