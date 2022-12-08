@@ -59,23 +59,39 @@ namespace FullStackAPI.Controllers
         [Route("ByCategorie/{term}")]
         public async Task<IActionResult> getCategorieByTerm([FromRoute] string term)
         {
-            if(term == null) { return BadRequest("not found"); }
+            if (term == null) { return BadRequest("not found"); }
 
             var CategorieChoice = await _fullStackDbContext.budgets
-                .Where(cat=> cat.categories.Contains(term))
+                .Where(cat => cat.categories.Contains(term))
                 .ToListAsync();
 
-           
-            
 
-            if(CategorieChoice == null) { return BadRequest(); }
+
+
+            if (CategorieChoice == null) { return BadRequest(); }
             if (CategorieChoice.Count == 0)
             {
 
                 return NotFound("no data found");
             }
             return Ok(CategorieChoice);
-            
+
+        }
+
+
+        [HttpDelete]
+        [Route("{id:id}")]
+        public async Task<IActionResult> DeleteCategorySpent([FromRoute] int id)
+        {
+            if(id == 0) { return NotFound("this id do not exist in database"); }
+
+            var deleteCategoryRequest = await _fullStackDbContext.budgets.FindAsync( id);
+            if (deleteCategoryRequest == null) { return BadRequest(); }
+            _fullStackDbContext.budgets.Remove(deleteCategoryRequest);
+            await _fullStackDbContext.SaveChangesAsync();
+            return Ok(deleteCategoryRequest);
+
+
         }
     }
 }
