@@ -80,7 +80,7 @@ namespace FullStackAPI.Controllers
 
 
         [HttpDelete]
-        [Route("{id:id}")]
+        [Route("{id}")]
         public async Task<IActionResult> DeleteCategorySpent([FromRoute] int id)
         {
             if(id == 0) { return NotFound("this id do not exist in database"); }
