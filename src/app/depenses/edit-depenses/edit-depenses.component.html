@@ -84,6 +84,9 @@
                 <button type="submit" class="btn btn-primary"
                 [disabled]="!editDepenseform.form.valid"
                 >Save</button>
+                <button (click)="deleteSpent(updateDepenseRequest.id)" class="btn btn-danger ml-2"
+              
+                >Delete</button>
                 <br>
                 <br>
                 <div *ngIf="isValidForms ; else elseBlock" >

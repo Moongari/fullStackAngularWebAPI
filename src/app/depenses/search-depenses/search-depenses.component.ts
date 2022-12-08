@@ -20,6 +20,9 @@ export class SearchDepensesComponent implements OnInit{
   messageErrorSaisie:string = '';
   errorTypingCategorie:boolean=false;
   budgetDepenses: Budget[] = [];
+  messageBadRequest : string = 'Aucun resultat pour cette recherche';
+  isBadBadRequest:boolean= false;
+  resultSelected : string ='';
   
   
   
@@ -29,20 +32,25 @@ export class SearchDepensesComponent implements OnInit{
 
         debounceTime(1000),
         distinctUntilChanged(),
-        switchMap((term)=> this.depensesService.searchDepenseList(term)),catchError(error=>{
-          console.log('error');
-          return of();
+        switchMap((term)=> this.depensesService.searchDepenseList(term)),
+
+        catchError(error=>{
+            //console.log('error');
+            this.isBadBadRequest= true;
+            this.messageBadRequest;
+          return of([]);
         })
         
        
     );
     //this.refresh();
-
+    this.loadList();
   }
 
 
   search(term:string| any){
 
+    
     if(term !== null){
       this.searchTerm.next(term);
     }
@@ -50,12 +58,27 @@ export class SearchDepensesComponent implements OnInit{
 
   }
 
+  loadList(){
 
+    this.depensesService.getAllDepenses().subscribe({
+      next:(depense)=>{
+        this.budgetDepenses= depense;
+      }
+    });
+
+  }
 
   gotoEdit(depense:Budget){
 
     const link = ['/budget',depense.id];
     this.router.navigate(link);
+  }
+
+
+  selectedCategorie(cat:string){
+    
+    console.log('result' + cat.substring(0,1));
+    return this.resultSelected = cat.substring(0,1);
   }
 
 }

@@ -15,6 +15,7 @@ import { DepensesService } from './services/depenses.service';
 import { SoldeService } from './services/solde.service';
 import { AuthGuard } from '../auth.guard';
 import { SearchDepensesComponent } from './search-depenses/search-depenses.component';
+import { SearhEditDepenseComponent } from './searh-edit-depense/searh-edit-depense.component';
 
 
 
@@ -27,6 +28,10 @@ const depenseRoutes: Routes = [
 path :'budget/add',
 component: AddDepensesComponent,canActivate:[AuthGuard]
 },
+{
+  path :'budget/searchEditSpent',
+  component: SearhEditDepenseComponent
+  },
 {
 path :'budget/:id',
 component: EditDepensesComponent,canActivate:[AuthGuard]
@@ -54,6 +59,7 @@ component: EditDepensesComponent,canActivate:[AuthGuard]
     SoldeListComponent,
     EditDepensesComponent,
     SearchDepensesComponent,
+    SearhEditDepenseComponent,
   ],
   imports: [
     CommonModule,

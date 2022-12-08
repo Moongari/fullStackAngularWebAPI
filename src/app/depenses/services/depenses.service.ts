@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environnement } from 'src/environnements/environnement';
 import { Budget } from '../models/budget-models';
 
@@ -33,8 +33,19 @@ baseAPiUrl: string = environnement.baseApiUrl;
 
   searchDepenseList(term:string):Observable<Budget[]>{
     console.log(term);
+
+    // ici on va eviter de faire appel au serveur lorsque l'utilisateur tape plus d'une lettre ou aucune lettre
+    //ceci permet de gerer l'erreur 404 egalement on renvoie donc un tableau vide
+    if(term.length >1 || term.length == 0){return of([]);}
+
     return this.http.get<Budget[]>(this.baseAPiUrl + `/api/Budget/ByCategorie/${term}`);
 
+  }
+
+
+  deleteRequestSpent(id:string):Observable<Budget>{
+    const idRequest= +id;
+    return this.http.delete<Budget>(this.baseAPiUrl + '/api/Budget/' + idRequest);
   }
 
 

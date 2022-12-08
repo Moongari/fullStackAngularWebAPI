@@ -19,14 +19,14 @@
     </div>
     </div>
   
-    <div>Recherche par ID</div>
+    <div>Search par ID</div>
     <input 
     #input
     (click)="selectinfoList(input.value)"
     type="number" 
     />
    
-    <div>Search by category (see on the list)</div>
+    <div>Filter by category</div>
     <input #categorie  
   
     text="text" id="searchCategories" name="searchCategories" (keyup)="selectCategorie(categorie.value)"
@@ -34,14 +34,16 @@
     />
     <br><br>
     
-      <app-search-depenses></app-search-depenses>
+      
 
     <div>
       <p *ngIf="errorTypingCategorie" class="text-danger">{{messageErrorSaisie}}</p>
     </div>
     
-    <p *ngIf="isErrorMessage==false" class="text-success">{{depenseNameSelected}}</p>
-    <p *ngIf="isErrorMessage" class="text-danger">{{depenseNameSelected}}</p>
+    <p *ngIf="isErrorMessage==false" class="text-success">
+      <span class="badge bg-success">{{depenseNameSelected}}</span></p>
+    <p *ngIf="isErrorMessage" class="text-danger">
+      <span class="badge bg-danger">{{depenseNameSelected}}</span></p>
 
     <table class="table table table-hover mt-5" *ngIf="budgetDepenses && budgetDepenses.length >0" >
         <thead>

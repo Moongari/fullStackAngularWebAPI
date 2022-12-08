@@ -1,23 +1,39 @@
 <div class="container my-6">
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
+          <div class="card border-secondary mb-3">
+            <div class="card-header">
+              <label class="badge bg-secondary">Rapid search and your spent</label>
+            </div>
+            <div class="card-body text-secondary">
+              <h5 class="card-title">Select your category</h5>
 
+              <select class="form-select" #selectedCat (change)="selectedCategorie(selectedCat.value)">
+                <option *ngFor="let cat of budgetDepenses"  value="{{cat.categories}}">{{cat.categories}}-{{cat.name}} - {{cat.amount | currency:'€'}}</option>
+            
+              </select>
 
-         
+              <br>
 
-            <label class="badge bg-secondary">Rapid search by Category</label>
-            <br>
-            <input type="text" #searchBox (keyup)="search(searchBox.value)" placeholder="category search"/>
-          <div class="list-group">
+              <input type="text"  (click)="search(resultSelected)" 
+              placeholder="category search" 
+              value={{resultSelected}}
+              title="Click on the field to see your result"
+              
+              />
+
+              <div class="list-group">
             
-            <button type="button" class="list-group-item list-group-item-action" *ngFor="let cat of depenses$ | async"
-            
-            (click)="gotoEdit(cat)">
-                {{cat.name}} -  {{cat.categories}} - {{cat.amount | currency:'€'}} 
-            </button>
-            
-      
+                <button type="button" class="list-group-item list-group-item-action" *ngFor="let cat of depenses$ | async"
+                (click)="gotoEdit(cat)">
+                    {{cat.name}} -  {{cat.categories}} - {{cat.amount | currency:'€'}} 
+                </button>
+                
+              </div>
+              <span *ngIf="isBadBadRequest">{{messageBadRequest}}</span>
+            </div>
           </div>
+       
         </div>
       
       </div>

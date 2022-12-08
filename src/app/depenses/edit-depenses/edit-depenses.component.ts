@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Budget } from '../models/budget-models';
 import { DepensesService } from '../services/depenses.service';
 
@@ -27,7 +27,7 @@ export class EditDepensesComponent implements OnInit{
     dateDepenses: ''
   }
 
-  constructor(private depenseService :DepensesService,private route:ActivatedRoute ){}
+  constructor(private depenseService :DepensesService,private route:ActivatedRoute,private router:Router ){}
 
   ngOnInit(): void {
 
@@ -91,6 +91,18 @@ export class EditDepensesComponent implements OnInit{
       }else{
         this.errorChecked = false;
       }
+  }
+
+
+  deleteSpent(id:string){
+    this.depenseService.deleteRequestSpent(this.updateDepenseRequest.id).subscribe({
+      next:(response)=>{
+        {
+          this.router.navigate(['budget']);
+        }
+      } 
+    })
+
   }
 
 }
